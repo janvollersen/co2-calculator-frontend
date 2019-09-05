@@ -1,0 +1,7 @@
+
+BLOCKED FILE ALERT
+
+A file has been blocked due to the 'EUC Filter Binaries and Executables' rule.
+Context: 'jquery-2.1.1.min.js'
+Disallowed due to filename
+Ticket Number: '11fc-5d53-bcde-0002'

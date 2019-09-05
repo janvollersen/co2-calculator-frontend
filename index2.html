@@ -1,0 +1,187 @@
+<html>
+  <head>
+    <title>Footprint</title>
+    <meta charset="utf-8">
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css"
+     integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
+     crossorigin=""/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.11/lodash.core.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://d3js.org/d3.v5.min.js" charset="utf-8"></script>
+
+    <link rel="stylesheet" href="index.css">
+  </head>
+
+  <body>
+    <div id="banner" class="container-fluid">
+      <h2>Pentahof's CO2 Footprint</h2>
+      <h3>Select any building to see its carbon footprint before and after a potential renovation.</h3>
+    </div>
+    <!-- App goes here -->
+    <div id="app" class="container col-md-12">
+
+      <!-- top row includes map, budget, and building customization -->
+      <div class="row">
+        <!-- map is displayed here-->
+        <div class="col-md-2 d-flex flex-column align-self-center">
+            <div class="row justify-content-center mx-3 my-4">
+              <button id="resbtn" class="btn">Residential</button>
+            </div>
+            <div class="row justify-content-center mx-3 my-4">
+              <button id="combtn" class="btn">Commercial</button>
+            </div>
+              <!-- <button id="allbtn" class="btn">All</button> -->
+            <div class="row justify-content-center mx-3 my-4">
+              <button id="nonebtn" class="btn ">None</button>
+            </div>
+            <div class="row justify-content-center mx-3 my-4">
+              <button id="clearcolor" class="btn ">Reset Colors</button>
+            </div>
+        </div>
+        <div class="col-md-6">
+          <div class="container">
+            <div class="row">
+              <div id="gradient">
+                <img src="gradient.png" id="grad" alt="Gradient From Orange to Red">
+                <p id="gradtext">Yellow to Red: Low to High Contribution</p>
+              </div>
+            </div>
+          </div>
+          <div id="hamburg_map" class="map">
+          </div>
+        </div>
+
+        <!-- toggle bar is displayed here-->
+        <div class="col-md-4">
+          <h1>Project Budget</h1>
+          <div id=capex>0</div>
+          <!-- display budget here! -->
+          <h1> Customize Building Renovation </h1>
+          <div class="controlpanel">
+
+            <!-- check boxes -->
+            <div class="controlrow">
+              <h5>High Performance</h5>
+              <label class="switch">
+                <input type="checkbox" id="toggleHP" value="FALSE">
+                <div class="toggle round"></div>
+              </label>
+            </div>
+
+            <div class="controlrow">
+              <h5>Water Efficient</h5>
+              <label class="switch">
+                <input type="checkbox" id="toggleWater">
+                <div class="toggle round"></div>
+              </label>
+            </div>
+
+            <div class="controlrow">
+              <h5>Landscaping</h5>
+              <label class="switch">
+                <input type="checkbox" id="toggleGreen">
+                <div class="toggle round"></div>
+              </label>
+            </div>
+
+            <!-- sliders -->
+            <div class="slidecontainer">
+              <h5>Roof Usage for PV and Greenhouse</h5>
+              <input type="range" min="0" max="100" value="0"
+                     class="slider" id="toggleRoof">
+              <p style="text-align:left; margin-top:10px">0%
+                <span style="float:right;">100%</span>
+              </p>
+            <div class="slidecontainer">
+              <h5> % of Used Rooftop for PV versus Greenhouse </h5>
+              <input type="range" min="0" max="100" value="50" class="slider"
+                     id="togglePVFood">
+              <p style="text-align:left; margin-top:10px">100% Greenhouse
+                <span style="float:right;">100% PV</span>
+              </p>
+            </div>
+
+          </div> <!-- end control panel-->
+
+        </div> <!-- end col with control panel -->
+
+      </div> <!-- end top row -->
+
+      <!-- new row at bottom with placeholder -->
+      <div class="row col-md-12" id="calculations">
+
+        <!-- CO2 results -->
+        <div class="col=sm-4 col-md-2" id="CO2">
+          <button class="dot">
+            <img class="co2" src="logos/co2.svg">
+          </button> <!-- icon goes here -->
+          <div class="resultval" id="co2val"> 0 </div>
+          <div class="units"> tons</div>
+          <div class="resultname"> CO2 Emissions </div>
+        </div>
+
+        <!-- Water results -->
+        <div class="col-sm-4 col-md-2" id="Water">
+          <button class="dot">
+            <img class="water" src="logos/water.svg">
+          </button>
+          <div class="resultval" id="waterval"> 0 </div>
+          <div class="units"> m<sup>3</sup> </div>
+          <div class="resultname"> Water Use </div>
+        </div>
+
+        <!-- Jobs results -->
+        <div class="col-sm-4 col-md-2" id="Jobs">
+          <button class="dot">
+            <img class="job" src="logos/job.svg">
+          </button>
+          <div class="resultval" id="jobsval"> 0 </div>
+          <div class="units"> number of jobs </div>
+          <div class="resultname"> Jobs Created </div>
+        </div>
+
+        <!-- Energy results -->
+        <div class="col-sm-4 col-md-2" id="Energy">
+          <button class="dot"><img class="energy" src="logos/energy.svg"></button>
+          <div class="resultval" id="energyval"> 0 </div>
+          <div class="units"> GWh </div>
+          <div class="resultname"> Building Energy Use </div>
+        </div>
+
+        <!-- Cost -->
+        <div class="col-sm-4 col-md-2" id="Cost">
+          <button class="dot"><img class="cost" src="logos/cost.svg"></button>
+          <div class="resultval" id="opexval"> 0 </div>
+          <div class="units"> SARS </div>
+          <div class="resultname"> Operational Costs (thousands) </div>
+        </div>
+
+        <!-- Food -->
+        <div class="col-sm-4 col-md-2" id="Food">
+          <button class="dot"><img class="greenhouse" src="logos/greenhouse.svg"></button>
+          <div class="resultval" id="foodval"> 0 </div>
+          <div class="units"> % </div>
+          <div class="resultname"> Locally Grown Vegetables </div>
+        </div>
+
+      </div> <!-- end calculations row -->
+
+    </div> <!-- end app -->
+
+    <!-- Include vue, leaflet, and our custom javascript-->
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script src='http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js'></script>
+    <script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js"
+            integrity="sha512-QVftwZFqvtRNi0ZyCtsznlKSWOStnDORoefr1enyq5mVL4tmKB3S/EnC3rRJcxCPavG10IcrVGSmPh6Qw5lwrg=="
+            crossorigin=""></script>
+    <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/0.8.9/jquery.csv.min.js"></script>
+    <script src="res.js"></script>
+    <script src="com.js"></script>
+    <script src="index.js"></script>
+  </body>
+</html>

@@ -1,0 +1,324 @@
+:root {
+  --main-color: #53ab92;
+  --light-color: #58bd9f;
+  --clicked-color: #4487b2;
+  --graycolor: #484848;
+  --reset-color: #888888;
+}
+
+@font-face {
+  font-family: 'Futura';
+  src: url('fonts/Futura Book font.ttf');
+}
+
+html, body {
+    padding: 0;
+    font-family: 'Futura';
+}
+
+/******* TITLE ******/
+h2 { /* title */
+  margin-top: 10px;
+  color: var(--main-color);
+  text-align: center;
+}
+
+h3 {  /* subtitle */
+  color: var(--light-color);
+  text-align: center;
+  font-size: 110%;
+  font-style: italic;
+}
+
+/******* Navbar ******/
+#nav {
+  font-family: 'Futura';
+  background-color: #202e73;
+}
+
+#nav h1{
+  color: #FFF;
+}
+
+/************* Buttons ********************/
+.btn {
+  background-color: var(--light-color);
+  border: none;
+  color: white;
+  padding: 12px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  /* border-radius: 5px; */
+  /* margin-left: 7px; */
+}
+
+#gradient {
+  /* margin-left: 1.5em; */
+  width: 400px;
+  /* text-align: right; */
+}
+
+#grad {
+  width: 100%;
+}
+
+#gradtext {
+  color: var(--graycolor);
+}
+
+#clearcolor {
+  background-color: var(--reset-color);
+  /* margin-left: 20px; */
+}
+
+/***************************************
+ * Map CSS
+ ***************************************/
+.leaflet-container {
+    background-color: rgba(255,0,0,0.0);
+}
+
+/****************************************
+ CSS related to capex and building modification
+ ****************************************/
+
+h1 {
+  color: var(--main-color);
+  font-size: 150%;
+  font-weight: bold;
+}
+
+/* CapEx CSS*/
+#capex {
+  font-weight: bold;
+  font-size: 150%;
+  color: #000;
+}
+
+h5{ /* building customization titles */
+    font-family: Arial, sans-serif;
+}
+
+#control-panel {
+  height: 50em;
+  display: block;
+}
+
+#data-vis {
+  padding: 0em;
+}
+
+#hamburg_map {
+  height: 65em;
+}
+
+.calc-value {
+
+}
+
+.control-row{
+  display: block;
+}
+
+.controlrow {
+    margin-bottom: 20px;
+    margin-right: 50%;
+}
+
+.row.display-flex {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+/* Start Toggle Switch CSS*/
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.toggle {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.toggle:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .toggle {
+  background-color: var(--main-color);
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px var(--main-color);
+}
+
+input:checked + .toggle:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.toggle.round {
+  border-radius: 34px;
+}
+
+.toggle.round:before {
+  border-radius: 50%;
+}
+
+/* Start Slider CSS*/
+
+.slider {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%; /* Full-width */
+    height: 13px; /* Specified height */
+    border-radius: 5px;
+    background: #d3d3d3; /* Grey background */
+    outline: none; /* Remove outline */
+    opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
+    -webkit-transition: .2s; /* 0.2 seconds transition on hover */
+    transition: opacity .2s;
+}
+
+/* Mouse-over effects */
+.slider:hover {
+  opacity: 1; /* Fully shown on mouse-over */
+}
+
+/* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none; /* Override default look */
+  appearance: none;
+  width: 25px; /* Set a specific slider handle width */
+  height: 25px; /* Slider handle height */
+  border-radius: 50%;
+  background: var(--main-color);
+  cursor: pointer; /* Cursor on hover */
+}
+
+.slider::-moz-range-thumb {
+  width: 25px; /* Set a specific slider handle width */
+  height: 25px; /* Slider handle height */
+  border-radius: 50%;
+  background: var(--main-color);
+  cursor: pointer; /* Cursor on hover */
+}
+
+.slidecontainer {
+  width: 100%;/* Width of the outside container */
+  margin-bottom: 20px;
+}
+
+
+
+
+/* CALCULATIONS  RESULTS css section */
+
+/* Icon formatting! */
+.co2 {
+    display: block;
+    margin: auto;
+    margin-top: 5px;
+    width: 90%;
+}
+
+.water {
+    display: block;
+    margin: auto;
+    margin-top: 7px;
+    width: 45%;
+}
+
+.cost {
+    display: block;
+    margin: auto;
+    margin-top: 5px;
+    width: 90%;
+}
+
+.job {
+    display: block;
+    margin: auto;
+    margin-top: 6px;
+    width: 75%;
+}
+
+.greenhouse {
+    display: block;
+    margin: auto;
+    margin-top: 6px;
+    width: 80%;
+
+}
+
+
+/* remaining calculations */
+#calculations {
+    padding: 10;
+    text-align: center;
+}
+
+.dot {
+  height: 75px;
+  width: 75px;
+  border-color: #fff;
+  background-color: #fff;
+  border-radius: 50%;
+  display: inline-block;
+  /* margin-bottom: 10px; */
+}
+.resultval {
+    font-weight: bold;
+    font-size: 150%;
+}
+
+.units {
+    font-style: italic;
+    font-size: 90%;
+}
+
+.resultname {
+    font-weight: normal;
+}
+
+
+.results {
+    .icon {
+        cx="50";
+        cy="25";
+        r="25";
+        #CO2 {
+            fill="#A3E4D7"
+        }
+
+    }
+}
